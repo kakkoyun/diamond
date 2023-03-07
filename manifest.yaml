@@ -10,7 +10,7 @@ metadata:
   name: diamond
   namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: workload
@@ -32,23 +32,21 @@ spec:
         args:
           - /bin/diamond
           - --address=:8080
-          - --log-level=info
         image: localhost:5000/diamond:dev
         livenessProbe:
           httpGet:
             host: localhost
             path: /live
             port: 8080
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
         readinessProbe:
           httpGet:
             host: localhost
             path: /ready
             port: 8080
-          initialDelaySeconds: 10
+          initialDelaySeconds: 20
         resources: {}
         terminationMessagePolicy: FallbackToLogsOnError
-      serviceAccountName: diamond
       terminationGracePeriodSeconds: 120
 ---
 apiVersion: v1

@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"errors"
+	"math/rand"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/alecthomas/kong"
 	"github.com/go-kit/log"
@@ -51,14 +53,16 @@ func main() {
 	defer cancel()
 
 	{
+		rand.Seed(time.Now().UnixNano())
 		g.Add(func() error {
 			for {
 				select {
 				case <-ctx.Done():
 					return ctx.Err()
 				default:
-					a()
-					b()
+					r := rand.Intn(1000)
+					a(r)
+					b(r)
 				}
 			}
 		}, func(err error) {
@@ -87,18 +91,16 @@ func main() {
 }
 
 //go:noinline
-func a() {
-	println("a")
-	c()
+func a(r int) {
+	c(r)
 }
 
 //go:noinline
-func b() {
-	println("b")
-	c()
+func b(r int) {
+	c(r)
 }
 
 //go:noinline
-func c() {
-	println("c")
+func c(r int) {
+	time.Sleep(time.Duration(r) * time.Millisecond)
 }

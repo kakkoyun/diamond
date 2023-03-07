@@ -24,7 +24,7 @@ set -euo pipefail
 
 NODE_COUNT=${NODE_COUNT:-1}
 
-MINIKUBE_PROFILE_NAME="${MINIKUBE_PROFILE_NAME:-subshells}"
+MINIKUBE_PROFILE_NAME="${MINIKUBE_PROFILE_NAME:-diamond}"
 function mk() {
     minikube -p "${MINIKUBE_PROFILE_NAME}" "$@"
 }
@@ -98,10 +98,12 @@ function deploy() {
     echo "Deploying dev environment"
     echo "----------------------------------------------------------"
     # Deploy all generated manifests
-    kubectl apply -f ./manifest.yml
-    # kubectl create namespace parca
-    kubectl apply -f https://github.com/parca-dev/parca/releases/download/v0.16.2/kubernetes-manifest.yaml
-    kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/v0.13.0/kubernetes-manifest.yaml
+    kubectl apply -f ./manifest.yaml
+    kubectl create namespace parca
+    # kubectl apply -f https://github.com/parca-dev/parca/releases/download/v0.16.2/kubernetes-manifest.yaml
+    kubectl apply -f parca-manifest.yaml
+    # kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/v0.13.0/kubernetes-manifest.yaml
+    kubectl apply -f parca-agent-manifest.yaml
     kubectl rollout -n parca status deployment parca
     kubectl port-forward -n parca svc/parca 7070 &
 }
