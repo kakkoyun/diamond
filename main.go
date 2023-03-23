@@ -15,6 +15,9 @@ import (
 	"github.com/oklog/run"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
+
+	"github.com/kakkoyun/diamond/pkg/diamond"
+	"github.com/kakkoyun/diamond/pkg/tree"
 )
 
 type Flags struct {
@@ -60,9 +63,8 @@ func main() {
 				case <-ctx.Done():
 					return ctx.Err()
 				default:
-					r := rand.Intn(1000)
-					a(r)
-					b(r)
+					diamond.Run(ctx)
+					tree.Run(ctx)
 				}
 			}
 		}, func(err error) {
@@ -88,19 +90,4 @@ func main() {
 		os.Exit(1)
 	}
 	logger.Log("msg", "exited")
-}
-
-//go:noinline
-func a(r int) {
-	c(r)
-}
-
-//go:noinline
-func b(r int) {
-	c(r)
-}
-
-//go:noinline
-func c(r int) {
-	time.Sleep(time.Duration(r) * time.Millisecond)
 }
