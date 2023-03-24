@@ -1,3 +1,13 @@
+all: build
+
+.PHONY: build
+build: deps
+	go build .
+
+.PHONY: deps
+deps:
+	go mod tidy
+
 .PHONY: dev/up
 dev/up: manifest.yaml
 	source ./local-dev.sh && up

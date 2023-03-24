@@ -14,6 +14,7 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 
+COPY --chown=nobody:nogroup ./pkg ./pkg
 COPY --chown=nobody:nogroup ./main.go ./main.go
 
 RUN mkdir bin

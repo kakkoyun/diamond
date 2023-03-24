@@ -1,2 +1,3 @@
-# diamond
-Shine like a diamond
+# Diamond
+
+Shine bright like a diamond

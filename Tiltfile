@@ -4,6 +4,7 @@ docker_build(
     'localhost:5000/diamond:dev', '',
     dockerfile='Dockerfile',
     only=[
+        './pkg/',
         './go.mod',
         './go.sum',
         './main.go',

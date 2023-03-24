@@ -99,7 +99,7 @@ function deploy() {
     echo "----------------------------------------------------------"
     # Deploy all generated manifests
     kubectl apply -f ./manifest.yaml
-    kubectl create namespace parca
+    # kubectl create namespace parca
     # kubectl apply -f https://github.com/parca-dev/parca/releases/download/v0.16.2/kubernetes-manifest.yaml
     kubectl apply -f parca-manifest.yaml
     # kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/v0.13.0/kubernetes-manifest.yaml

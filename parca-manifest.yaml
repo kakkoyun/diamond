@@ -99,36 +99,37 @@ metadata:
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/warn: privileged
   name: parca
----
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: parca
-spec:
-  allowPrivilegeEscalation: false
-  fsGroup:
-    ranges:
-    - max: 65535
-      min: 1
-    rule: MustRunAs
-  requiredDropCapabilities:
-  - ALL
-  runAsUser:
-    rule: MustRunAsNonRoot
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    ranges:
-    - max: 65535
-      min: 1
-    rule: MustRunAs
-  volumes:
-  - configMap
-  - emptyDir
-  - projected
-  - secret
-  - downwardAPI
-  - persistentVolumeClaim
+# ---
+# apiVersion: policy/v1beta1
+# kind: PodSecurityPolicy
+# metadata:
+#   name: parca
+#   namespace: parca
+# spec:
+#   allowPrivilegeEscalation: false
+#   fsGroup:
+#     ranges:
+#     - max: 65535
+#       min: 1
+#     rule: MustRunAs
+#   requiredDropCapabilities:
+#   - ALL
+#   runAsUser:
+#     rule: MustRunAsNonRoot
+#   seLinux:
+#     rule: RunAsAny
+#   supplementalGroups:
+#     ranges:
+#     - max: 65535
+#       min: 1
+#     rule: MustRunAs
+#   volumes:
+#   - configMap
+#   - emptyDir
+#   - projected
+#   - secret
+#   - downwardAPI
+#   - persistentVolumeClaim
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

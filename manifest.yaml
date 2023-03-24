@@ -33,18 +33,18 @@ spec:
           - /bin/diamond
           - --address=:8080
         image: localhost:5000/diamond:dev
-        livenessProbe:
-          httpGet:
-            host: localhost
-            path: /live
-            port: 8080
-          initialDelaySeconds: 10
-        readinessProbe:
-          httpGet:
-            host: localhost
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 20
+        # livenessProbe:
+        #   httpGet:
+        #     host: localhost
+        #     path: /live
+        #     port: 8080
+        #   initialDelaySeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     host: localhost
+        #     path: /ready
+        #     port: 8080
+        #   initialDelaySeconds: 20
         resources: {}
         terminationMessagePolicy: FallbackToLogsOnError
       terminationGracePeriodSeconds: 120
